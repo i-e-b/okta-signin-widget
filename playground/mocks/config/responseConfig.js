@@ -124,8 +124,9 @@ const idx = {
 // ===== AUTHN
 const authn = {
   '/api/v1/authn/introspect': [
-    'mfa-required-email',
+    // 'mfa-required-email',
     // 'unauthenticated',
+    'admin-consent-required',
   ],
   '/api/v1/authn': [
     'unauthenticated',
@@ -399,5 +400,5 @@ const ovPushError = {
 };
 
 module.exports = {
-  mocks: idx,
+  mocks: authn,
 };
