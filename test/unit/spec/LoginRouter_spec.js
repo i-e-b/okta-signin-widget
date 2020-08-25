@@ -1,6 +1,6 @@
 /* eslint max-params: [2, 34], max-statements: 0, max-len: [2, 180], camelcase:0 */
 import { _, $, Backbone, Router, internal } from 'okta';
-import OktaAuth from '@okta/okta-auth-js';
+import createAuthClient from 'widget/createAuthClient';
 import LoginRouter from 'LoginRouter';
 import config from 'config/config.json';
 import EnrollCallForm from 'helpers/dom/EnrollCallForm';
@@ -65,7 +65,7 @@ Expect.describe('LoginRouter', function () {
     const setNextResponse = settings.mockAjax === false ? function () {} : Util.mockAjax();
     const baseUrl = 'https://foo.com';
     const usePKCE = settings['authParams.pkce'] || false;
-    const authClient = new OktaAuth({ issuer: baseUrl, pkce: usePKCE, headers: {} });
+    const authClient = createAuthClient({ issuer: baseUrl, pkce: usePKCE, headers: {} });
     const eventSpy = jasmine.createSpy('eventSpy');
     const afterRenderHandler = jasmine.createSpy('afterRenderHandler');
     const afterErrorHandler = jasmine.createSpy('afterErrorHandler');
@@ -315,7 +315,7 @@ Expect.describe('LoginRouter', function () {
   });
   it('throws a ConfigError if issuer is not passed as a widget param', function () {
     const fn = function () {
-      setup({ authClient: new OktaAuth({ issuer: undefined }) });
+      setup({ authClient: createAuthClient({ issuer: undefined }) });
     };
 
     expect(fn).toThrowError(
